@@ -1,31 +1,11 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import App from "./App.tsx";
 import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./reset.css";
+import "./index.css";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ChakraProvider
-      theme={extendTheme({
-        config: {
-          initialColorMode: "dark",
-          useSystemColorMode: false,
-        },
-        styles: {
-          global: {
-            html: {
-              scrollBehavior: "smooth",
-            },
-            body: {
-              bg: "#101010",
-              color: "white",
-            },
-          },
-        },
-      })}
-    >
-      <App traceData="" />
-    </ChakraProvider>
-  </StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App traceData={(window as unknown as { TRACE_DATA: string }).TRACE_DATA} />
+  </React.StrictMode>
 );

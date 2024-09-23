@@ -1,14 +1,5 @@
 import React, { useCallback, useState } from "react";
-import {
-  Box,
-  VStack,
-  Text,
-  Button,
-  useColorModeValue,
-  Heading,
-  Flex,
-} from "@chakra-ui/react";
-import { ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import styles from "./App.module.css";
 
 interface TraceNode {
   content: string;
@@ -80,8 +71,6 @@ const TraceNodeComponent: React.FC<{
   allNodes,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const bgColor = "gray.700";
-  const borderColor = "gray.600";
 
   const recalculateMaxDepth = useCallback(() => {
     const maxDepth = Math.max(
@@ -100,67 +89,40 @@ const TraceNodeComponent: React.FC<{
     recalculateMaxDepth();
   };
 
-  // Calculate opacity based on the depth and max expanded depth
   const opacity =
     node.depth === maxExpandedDepth
       ? 1
-      : Math.max(0.15, 1 - (maxExpandedDepth - node.depth) * 0.4);
+      : Math.max(0.5, 1 - (maxExpandedDepth - node.depth) * 0.2);
+
+  const buttonStyle = {
+    opacity: opacity,
+  };
+
+  const getTextColor = () => {
+    if (node.content.startsWith("←")) {
+      return node.content.startsWith("← [Revert]")
+        ? styles.redText
+        : styles.greenText;
+    }
+    return isExpanded ? styles.whiteText : styles.whiteAlphaText;
+  };
 
   return (
-    <Box width="100%">
-      <Button
+    <div className={styles.nodeContainer}>
+      <button
         onClick={toggleExpand}
-        variant="outline"
-        size="sm"
-        leftIcon={
-          node.children.length > 0 ? (
-            isExpanded ? (
-              <ChevronDownIcon />
-            ) : (
-              <ChevronRightIcon />
-            )
-          ) : undefined
-        }
-        mb={2}
-        width="100%"
-        height="auto"
-        justifyContent="flex-start"
-        bg={bgColor}
-        borderColor={borderColor}
-        opacity={opacity}
-        transition="opacity 0.2s, background-color 0.2s"
-        _hover={{
-          opacity: Math.min(1, opacity + 0.3),
-          bg: useColorModeValue("gray.200", "gray.600"),
-        }}
+        className={`${styles.nodeButton} ${isExpanded ? styles.expanded : ""}`}
+        style={buttonStyle}
       >
-        <Text
-          fontSize="sm"
-          isTruncated={!isExpanded}
-          whiteSpace={isExpanded ? "normal" : "nowrap"}
-          fontWeight={isExpanded ? "bolder" : "normal"}
-          textAlign="left"
-          wordBreak="break-all"
-          color={
-            node.content.startsWith("←")
-              ? node.content.startsWith("← [Revert]")
-                ? "red.300"
-                : "green.300"
-              : isExpanded
-              ? "white"
-              : "whiteAlpha.800"
-          }
-          transition="color 0.2s"
-          _hover={{
-            color: useColorModeValue("black", "white"),
-          }}
-          pointerEvents={isExpanded ? "auto" : "none"}
-        >
+        {node.children.length > 0 && (
+          <span className={styles.chevron}>{isExpanded ? "▼" : "▶"}</span>
+        )}
+        <span className={`${styles.nodeContent} ${getTextColor()}`}>
           {node.content}
-        </Text>
-      </Button>
+        </span>
+      </button>
       {isExpanded && node.children.length > 0 && (
-        <Box pl={4} borderLeft="1px" borderColor={borderColor} width="100%">
+        <div className={styles.childrenContainer}>
           {node.children.map((child, index) => (
             <TraceNodeComponent
               key={index}
@@ -171,9 +133,9 @@ const TraceNodeComponent: React.FC<{
               allNodes={allNodes}
             />
           ))}
-        </Box>
+        </div>
       )}
-    </Box>
+    </div>
   );
 };
 
@@ -181,31 +143,29 @@ const App = ({ traceData }: { traceData: string }) => {
   const [treeData] = useState(() => parseTrace(traceData));
   const [maxExpandedDepth, setMaxExpandedDepth] = useState(0);
   const [allNodes] = useState(() => {
-    const flattenTree = (nodes) =>
-      nodes.flatMap((node) => [node, ...flattenTree(node.children)]);
+    const flattenTree = (nodes: TraceNode[]): TraceNode[] =>
+      nodes.flatMap((node: TraceNode) => [node, ...flattenTree(node.children)]);
     return flattenTree(treeData);
   });
 
   return (
-    <Flex mt="2rem" flexDir={"column"} alignItems={"center"} w="100%">
-      <Heading size="lg">Forge Tests Stack Tracer UI</Heading>
+    <div className={styles.appContainer}>
+      <h1 className={styles.heading}>Forge Stack Tracer UI</h1>
       {treeData.length > 0 && (
-        <Box mt={"2rem"} w="40rem" px="1rem">
-          <VStack align="stretch" spacing={2} width="100%">
-            {treeData.map((root, index) => (
-              <TraceNodeComponent
-                key={index}
-                node={root}
-                expandedDepth={0}
-                maxExpandedDepth={maxExpandedDepth}
-                setMaxExpandedDepth={setMaxExpandedDepth}
-                allNodes={allNodes}
-              />
-            ))}
-          </VStack>
-        </Box>
+        <div className={styles.traceContainer}>
+          {treeData.map((root, index) => (
+            <TraceNodeComponent
+              key={index}
+              node={root}
+              expandedDepth={0}
+              maxExpandedDepth={maxExpandedDepth}
+              setMaxExpandedDepth={setMaxExpandedDepth}
+              allNodes={allNodes}
+            />
+          ))}
+        </div>
       )}
-    </Flex>
+    </div>
   );
 };
 

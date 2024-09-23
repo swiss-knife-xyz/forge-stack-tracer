@@ -1,0 +1,28 @@
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure the root, html, and body take up full height and width */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+/* Set default font and background color */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #101010;
+  color: white;
+  overflow-x: hidden; /* Prevent horizontal scrollbar */
+  margin: 0 !important; /* Explicitly remove body margin */
+}
+
+/* Ensure all elements inherit the background color */
+html {
+  background-color: #101010;
+}

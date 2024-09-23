@@ -1,0 +1,124 @@
+@font-face {
+  font-family: "Inter var";
+  src: url("https://rsms.me/inter/font-files/Inter-roman.var.woff2?v=3.19")
+    format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+.appContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1a202c;
+  color: #e2e8f0;
+  padding: 2rem 0;
+  overflow-x: hidden;
+  font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
+.heading {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  color: white;
+}
+
+.traceContainer {
+  width: 100%;
+  max-width: 48rem;
+  padding: 0 1rem;
+}
+
+.nodeContainer {
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+.nodeButton {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
+  border-radius: 0.375rem;
+  color: #e2e8f0;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-variation-settings: "wght" 400;
+  transition: font-variation-settings 0.1s ease-in-out,
+    background-color 0.2s ease-in-out;
+}
+
+.nodeButton:hover {
+  background-color: #4a5568;
+}
+
+.nodeButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
+}
+
+.nodeButton.expanded {
+  font-variation-settings: "wght" 600;
+  background-color: #3a4d65;
+}
+
+.chevron {
+  margin-right: 0.75rem;
+  font-size: 0.75rem;
+  transition: transform 0.2s;
+}
+
+.expanded .chevron {
+  transform: rotate(90deg);
+}
+
+.nodeContent {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.expanded .nodeContent {
+  white-space: normal;
+  word-break: break-all;
+}
+
+.childrenContainer {
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  border-left: 1px solid #4a5568;
+}
+
+.redText {
+  color: #fc8181;
+}
+
+.greenText {
+  color: #68d391;
+}
+
+.whiteText {
+  color: #e2e8f0;
+}
+
+.whiteAlphaText {
+  color: rgba(226, 232, 240, 0.8);
+}

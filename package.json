@@ -1,11 +1,32 @@
 {
+  "name": "forge-stack-tracer",
+  "version": "1.0.0",
+  "description": "Generates interactive stack traces for your Foundry tests",
+  "main": "dist/index.js",
+  "bin": {
+    "fst": "./dist/index.js"
+  },
+  "keywords": [
+    "forge",
+    "stack",
+    "tracer",
+    "html",
+    "generator",
+    "static"
+  ],
+  "author": "Apoorv Lathey",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build:react": "tsc -b && vite build",
+    "build:bin": "tsc -p tsconfig.bin.json",
+    "build": "pnpm run build:react && pnpm run build:bin",
+    "prepublishOnly": "pnpm run build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate": "tsx generate-static-html.ts"
+    "generate": "tsx forge-stack-tracer.ts",
+    "test": "pnpm run build && pnpm run generate && open ./dist/output.html"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
@@ -13,11 +34,13 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "framer-motion": "^11.5.6",
+    "fs-extra": "^11.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
