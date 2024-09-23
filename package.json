@@ -1,6 +1,6 @@
 {
   "name": "forge-stack-tracer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generates interactive stack traces for your Foundry tests",
   "author": "Apoorv Lathey <apoorv.xyz>",
   "homepage": "https://github.com/apoorvlathey/forge-stack-tracer#readme",
@@ -21,6 +21,9 @@
     "generator",
     "static"
   ],
+  "files": [
+    "dist"
+  ],
   "main": "dist/index.js",
   "bin": {
     "fst": "./dist/index.js"
@@ -37,17 +40,11 @@
     "generate": "tsx forge-stack-tracer.ts",
     "test": "pnpm run build && pnpm run generate && open ./dist/output.html"
   },
-  "dependencies": {
+  "devDependencies": {
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "framer-motion": "^11.5.6",
-    "fs-extra": "^11.2.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.5.5",
@@ -57,7 +54,11 @@
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
+    "framer-motion": "^11.5.6",
+    "fs-extra": "^11.2.0",
     "globals": "^15.9.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.1",
     "typescript": "^5.6.2",
