@@ -17,7 +17,7 @@ function getOutputPath() {
     .toISOString()
     .replace(/:/g, "-")
     .replace(/\..+/, "");
-  return path.join(process.cwd(), "out", `fst-${timestamp}.html`);
+  return path.join(process.cwd(), "out", "_fst", `fst-${timestamp}.html`);
 }
 
 function openFile(filePath: string) {
