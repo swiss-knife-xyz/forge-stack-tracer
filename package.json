@@ -2,20 +2,29 @@
   "name": "forge-stack-tracer",
   "version": "1.0.0",
   "description": "Generates interactive stack traces for your Foundry tests",
-  "main": "dist/index.js",
-  "bin": {
-    "fst": "./dist/index.js"
+  "author": "Apoorv Lathey <apoorv.xyz>",
+  "homepage": "https://github.com/apoorvlathey/forge-stack-tracer#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apoorvlathey/forge-stack-tracer"
   },
+  "bugs": {
+    "url": "https://github.com/apoorvlathey/forge-stack-tracer/issues"
+  },
+  "license": "MIT",
   "keywords": [
     "forge",
     "stack",
     "tracer",
+    "ui",
     "html",
     "generator",
     "static"
   ],
-  "author": "Apoorv Lathey",
-  "license": "MIT",
+  "main": "dist/index.js",
+  "bin": {
+    "fst": "./dist/index.js"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
