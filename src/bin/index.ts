@@ -8,7 +8,7 @@ import { spawn } from "child_process";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-function getOutputPath(): string {
+function getOutputPath() {
   const args = process.argv.slice(2);
   if (args.length > 0) {
     return args[0];
@@ -35,24 +35,18 @@ function openFile(filePath: string) {
   spawn(command, [filePath], { stdio: "inherit" });
 }
 
-function processInput(input: string): void {
+function processInput(input: string) {
   // Output the input back to the terminal
   console.log(input);
 
-  // Read the built index.html file
-  const inputHtmlPath = path.join(__dirname, "..", "index.html");
-  let htmlContent: string = fs.readFileSync(inputHtmlPath, "utf-8");
+  // Read the template HTML file
+  const templateHtmlPath = path.join(__dirname, "index.html");
+  let htmlContent = fs.readFileSync(templateHtmlPath, "utf-8");
 
   // Inject the trace data into the HTML
   const injectedScript: string = `
 <script>
   window.TRACE_DATA = ${JSON.stringify(input)};
-  // Ensure the setTraceData function exists
-  if (typeof window.setTraceData === 'function') {
-    window.setTraceData(window.TRACE_DATA);
-  } else {
-    console.error('setTraceData function not found');
-  }
 </script>
 `;
 

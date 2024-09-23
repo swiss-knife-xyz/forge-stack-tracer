@@ -1,11 +1,8 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./reset.css";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App traceData={(window as unknown as { TRACE_DATA: string }).TRACE_DATA} />
-  </React.StrictMode>
+  <App traceData={(window as unknown as { TRACE_DATA: string }).TRACE_DATA} />
 );
