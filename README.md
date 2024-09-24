@@ -2,6 +2,14 @@
 
 CLI tool that converts your Foundry test output into interactive stack traces!
 
+✨ Powered by [Swiss-Knife.xyz Calldata Decoder](https://calldata.swiss-knife.xyz/decoder) to decode even the unverified contracts!
+
+## Installation
+
+```
+npm i -g forge-stack-tracer
+```
+
 ## Usage
 
 Simply pipe the forge tests result into `fst`.
@@ -11,12 +19,6 @@ forge test --mt test_case -vvvv | fst
 ```
 
 ![output screenshot](./github-assets/output.png)
-
-## Installation
-
-```
-npm i -g forge-stack-tracer
-```
 
 ## Output
 

@@ -1,6 +1,6 @@
 {
   "name": "forge-stack-tracer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Generates interactive stack traces for your Foundry tests",
   "author": "Apoorv Lathey <apoorv.xyz>",
   "homepage": "https://github.com/apoorvlathey/forge-stack-tracer#readme",
