@@ -20,6 +20,12 @@ forge test --mt test_case -vvvv | fst
 
 ![output screenshot](./github-assets/output.png)
 
+To delete the `./out/_fst` folder, run:
+
+```
+fst clean
+```
+
 ## Output
 
 The package generates a static html file in your current foundry project, at: `./out/_fst/fst-{timestamp}.html`

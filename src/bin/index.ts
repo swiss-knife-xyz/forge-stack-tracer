@@ -4,9 +4,12 @@ import fs from "fs-extra";
 import path from "path";
 import { fileURLToPath } from "url";
 import { spawn } from "child_process";
+import inquirer from "inquirer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const outputFolderPath = path.join(process.cwd(), "out", "_fst");
 
 function getOutputPath() {
   const args = process.argv.slice(2);
@@ -45,10 +48,10 @@ function processInput(input: string) {
 
   // Inject the trace data into the HTML
   const injectedScript: string = `
-<script>
-  window.TRACE_DATA = ${JSON.stringify(input)};
-</script>
-`;
+    <script>
+      window.TRACE_DATA = ${JSON.stringify(input)};
+    </script>
+    `;
 
   // Insert the injected script just before the closing </body> tag
   htmlContent = htmlContent.replace("</body>", `${injectedScript}</body>`);
@@ -65,12 +68,37 @@ function processInput(input: string) {
   openFile(outputHtmlPath);
 }
 
-// Read from stdin
-let input = "";
-process.stdin.setEncoding("utf-8");
-process.stdin.on("data", (chunk) => {
-  input += chunk;
-});
-process.stdin.on("end", () => {
-  processInput(input.trim());
-});
+async function cleanOutputFolder() {
+  const { confirm } = await inquirer.prompt([
+    {
+      type: "confirm",
+      name: "confirm",
+      message: `Are you sure you want to delete the folder "${outputFolderPath}"?`,
+      default: true,
+    },
+  ]);
+
+  if (confirm) {
+    await fs.remove(outputFolderPath);
+    console.log(`Folder "${outputFolderPath}" has been deleted.`);
+  } else {
+    console.log("Operation cancelled.");
+  }
+}
+
+const args = process.argv.slice(2);
+if (args[0] === "clean") {
+  // "fst clean"
+  cleanOutputFolder();
+} else {
+  // piping forge stack trace data "forge test -vvvv | fst"
+  // Read from stdin
+  let input = "";
+  process.stdin.setEncoding("utf-8");
+  process.stdin.on("data", (chunk) => {
+    input += chunk;
+  });
+  process.stdin.on("end", () => {
+    processInput(input.trim());
+  });
+}

@@ -1,6 +1,6 @@
 {
   "name": "forge-stack-tracer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Generates interactive stack traces for your Foundry tests",
   "author": "Apoorv Lathey <apoorv.xyz>",
   "homepage": "https://github.com/apoorvlathey/forge-stack-tracer#readme",
@@ -41,7 +41,8 @@
     "test": "pnpm run build && pnpm run generate && open ./dist/output.html"
   },
   "dependencies": {
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.2.0",
+    "inquirer": "^11.1.0"
   },
   "devDependencies": {
     "@chakra-ui/icons": "^2.1.1",
